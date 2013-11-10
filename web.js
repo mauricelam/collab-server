@@ -8,6 +8,10 @@ app.get('/', function (req, res) {
   res.sendfile('index.html');
 });
 
+app.get('blank', function (req, res) {
+  res.sendfile('blank.html');
+});
+
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
   io.set("polling duration", 10); 
