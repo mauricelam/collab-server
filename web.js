@@ -17,7 +17,7 @@ io.configure(function () {
   io.set("polling duration", 10); 
 });
 
-var htmls = {};
+var images = {};
 
 io.sockets.on('connection', function (socket) {
 	var roomkey;
@@ -30,16 +30,16 @@ io.sockets.on('connection', function (socket) {
 		socket.join(roomkey);
 		clientkey = guid();
 
-    console.log('source', htmls);
+    console.log('source', images);
     var returnmsg = {client_key: clientkey, new_room: newroom};
-    if (htmls[roomkey]) {
-      returnmsg.html_source = htmls[roomkey];
+    if (images[roomkey]) {
+      returnmsg.image = images[roomkey];
     }
 		socket.emit('handshake', returnmsg);
 	});
-  socket.on('htmlsource', function (data) {
-    htmls[roomkey] = data.source;
-    socket.broadcast.to(roomkey).emit('htmlsource', htmls[roomkey]);
+  socket.on('pageimage', function (data) {
+    images[roomkey] = data.source;
+    socket.broadcast.to(roomkey).emit('pageimage', images[roomkey]);
   });
 	socket.on('mousemove', function	(data) {
 		socket.broadcast.to(roomkey).emit('mousemove', data);
