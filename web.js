@@ -3,7 +3,7 @@ var httpserver = require('http').createServer(app);
 var io = require('socket.io').listen(server, { log: false });
 var ss = require('socket.io-stream');
 var WebSocketServer = require('ws').Server;
-var server = new WebSocketServer({server: server});
+var server = new WebSocketServer({server: httpserver});
 
 server.listen(process.env.PORT || 5000);
 
