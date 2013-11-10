@@ -39,6 +39,7 @@ io.sockets.on('connection', function (socket) {
 	});
   socket.on('pageimage', function (data) {
     images[roomkey] = data.source;
+    console.log(data.source);
     socket.broadcast.to(roomkey).emit('pageimage', images[roomkey]);
   });
 	socket.on('mousemove', function	(data) {
