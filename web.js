@@ -25,6 +25,7 @@ io.sockets.on('connection', function (socket) {
 		if (!connecting_clients){
 			newroom = false;
 		}
+		console.log("Room Key "+roomkey);
 		socket.join(roomkey);
 		clientkey = guid()
 		socket.emit('handshake', {client_key: clientkey, new_room: newroom});
