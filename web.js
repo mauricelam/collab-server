@@ -36,6 +36,9 @@ io.sockets.on('connection', function (socket) {
     if (images[roomkey]) {
       returnmsg.image = images[roomkey];
     }
+    if (htmls[roomkey]) {
+      returnmsg.source = htmls[roomkey];
+    }
 		socket.emit('handshake', returnmsg);
 	});
   socket.on('htmlsource', function (data) {
