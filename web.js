@@ -4,4 +4,4 @@ var server = connect( connect.logger(), connect.static(__dirname + '/public') );
 
 // Attach the sharejs REST and Socket.io interfaces to the server sharejs.attach(server, options);
 
-server.listen(8000, function(){ console.log('Server running at http://127.0.0.1:8000/'); });
+server.listen(80, function(){ console.log('Server running at http://127.0.0.1:80/'); });
