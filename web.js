@@ -1,15 +1,8 @@
-var connect = require('connect'),
-    sharejs = require('share').server;
+var io = require('socket.io').listen(80);
 
-var server = connect(
-      connect.logger(),
-      connect.static(__dirname + '/public')
-    );
-
-var options = {db: {type: 'none'}}; // See docs for options. {type: 'redis'} to enable persistance.
-
-// Attach the sharejs REST and Socket.io interfaces to the server
-sharejs.attach(server, options);
-
-server.listen(8000);
-console.log('Server running at http://127.0.0.1:8000/');
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
