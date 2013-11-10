@@ -1,9 +1,6 @@
 var app = require('express')();
-var httpserver = require('http').createServer(app);
+var server = require('http').createServer(app);
 var io = require('socket.io').listen(server, { log: false });
-var ss = require('socket.io-stream');
-var WebSocketServer = require('ws').Server;
-var server = new WebSocketServer({server: httpserver});
 
 server.listen(process.env.PORT || 5000);
 
@@ -37,14 +34,12 @@ io.sockets.on('connection', function (socket) {
     var returnmsg = {client_key: clientkey, new_room: newroom};
     if (htmls[roomkey]) {
       returnmsg.html_source = htmls[roomkey];
-      ss(socket).emit('handshake', htmls[roomkey], returnmsg);
-    } else {
-      socket.emit('handshake', returnmsg);
     }
+		socket.emit('handshake', returnmsg);
 	});
-  ss(socket).on('htmlsource', function (stream, data) {
-    htmls[roomkey] = stream;
-    ss(socket).broadcast.to(roomkey).emit('htmlsource', stream, htmls[roomkey]);
+  socket.on('htmlsource', function (data) {
+    htmls[roomkey] = data.source;
+    socket.broadcast.to(roomkey).emit('htmlsource', htmls[roomkey]);
   });
 	socket.on('mousemove', function	(data) {
 		socket.broadcast.to(roomkey).emit('mousemove', data);
