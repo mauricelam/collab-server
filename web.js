@@ -24,22 +24,22 @@ io.sockets.on('connection', function (socket) {
 	socket.on('handshake', function (data) {
 		roomkey = data.room;
 		connecting_clients = io.sockets.clients(roomkey);
-		console.log(connecting_clients);
 		console.log("Parties in the room " + connecting_clients.length);
 		newroom = connecting_clients.length === 0;
 		console.log("Room Key " + roomkey);
 		socket.join(roomkey);
 		clientkey = guid();
 
+    console.log('source', htmls);
     var returnmsg = {client_key: clientkey, new_room: newroom};
     if (htmls[roomkey]) {
-        returnmsg.html_source = htmls[roomkey];
+      returnmsg.html_source = htmls[roomkey];
     }
 		socket.emit('handshake', returnmsg);
 	});
   socket.on('htmlsource', function (data) {
-      htmls[roomkey] = data.source;
-      socket.broadcast.to(roomkey).emit('htmlsource', htmls[roomkey]);
+    htmls[roomkey] = data.source;
+    socket.broadcast.to(roomkey).emit('htmlsource', htmls[roomkey]);
   });
 	socket.on('mousemove', function	(data) {
 		socket.broadcast.to(roomkey).emit('mousemove', data);
