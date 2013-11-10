@@ -21,6 +21,7 @@ io.sockets.on('connection', function (socket) {
 		roomkey = data.room;
 		connecting_clients = io.sockets.clients(roomkey);
 		console.log(connecting_clients);
+		console.log("Parties in the room "+connecting_clients.length);
 		newroom = true;
 		if (!connecting_clients){
 			newroom = false;
