@@ -10,6 +10,11 @@ app.get('/', function (req, res) {
   res.sendfile('index.html');
 });
 
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
 io.sockets.on('connection', function (socket) {
 	socket.emit('news', { hello: 'world' });
 	socket.on('handshake', function (data) {
