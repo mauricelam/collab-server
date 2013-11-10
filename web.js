@@ -19,9 +19,14 @@ io.sockets.on('connection', function (socket) {
 	var roomkey;
 	socket.on('handshake', function (data) {
 		roomkey = data.room;
+		connecting_clients = io.sockets.clients('room');
+		newroom = true;
+		if !connecting_clients{
+			newroom = false;
+		}
 		socket.join(roomkey);
 		clientkey = guid()
-		socket.emit('handshake', {client_key: clientkey});
+		socket.emit('handshake', {client_key: clientkey, new_room: newroom});
 	});
 	socket.on('mousemove', function	(data) {
 		io.sockets.in(roomkey).emit('mousemove', data);
