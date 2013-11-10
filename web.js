@@ -18,6 +18,7 @@ io.configure(function () {
 });
 
 var images = {};
+var htmls = {};
 
 io.sockets.on('connection', function (socket) {
 	var roomkey;
@@ -37,6 +38,10 @@ io.sockets.on('connection', function (socket) {
     }
 		socket.emit('handshake', returnmsg);
 	});
+  socket.on('htmlsource', function (data) {
+    htmls[roomkey] = data.source;
+    socket.broadcast.to(roomkey).emit('htmlsource', htmls[roomkey]);
+  });
   socket.on('pageimage', function (data) {
     images[roomkey] = data.source;
     console.log(data.source);
