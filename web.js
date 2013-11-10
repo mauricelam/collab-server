@@ -16,12 +16,11 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
-	socket.emit('news', { hello: 'world' });
 	socket.on('handshake', function (data) {
 		roomkey = data.room;
 		socket.join(roomkey);
 		clientkey = guid()
-		socket.emit({client_key: clientkey});
+		socket.emit('handshake', {client_key: clientkey});
 	});
 });
 
