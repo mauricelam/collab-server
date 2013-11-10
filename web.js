@@ -15,10 +15,10 @@ app.get('/client', function (req, res) {
   res.sendfile('blank.html');
 });
 
-// io.configure(function () { 
-//   io.set("transports", ["xhr-polling"]); 
-//   io.set("polling duration", 10); 
-// });
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
 
 var htmls = {};
 
