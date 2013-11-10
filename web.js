@@ -53,6 +53,9 @@ io.sockets.on('connection', function (socket) {
 	socket.on('mousemove', function	(data) {
 		socket.broadcast.to(roomkey).emit('mousemove', data);
 	});
+  socket.on('broadcast', function (data) {
+    socket.broadcast.to(roomkey).emit('broadcast', data);
+  });
 });
 
 function s4() {
