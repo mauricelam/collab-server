@@ -1,12 +1,15 @@
-var express = require("express");
-var app = express();
-app.use(express.logger());
+var connect = require('connect'),
+    sharejs = require('share').server;
 
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
+var server = connect(
+      connect.logger(),
+      connect.static(__dirname + '/')
+    );
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+var options = {db: {type: 'none'}}; // See docs for options. {type: 'redis'} to enable persistance.
+
+// Attach the sharejs REST and Socket.io interfaces to the server
+sharejs.attach(server, options);
+
+server.listen(8000);
+console.log('Server running at http://127.0.0.1:8000/');
