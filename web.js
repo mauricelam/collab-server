@@ -16,11 +16,15 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
+	var roomkey;
 	socket.on('handshake', function (data) {
 		roomkey = data.room;
 		socket.join(roomkey);
 		clientkey = guid()
 		socket.emit('handshake', {client_key: clientkey});
+	});
+	socket.on('mousemove', function	(data) {
+		io.sockets.in(roomkey).emit('mousemove', data);
 	});
 });
 
