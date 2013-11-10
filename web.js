@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
   res.sendfile('index.html');
 });
 
-app.get('blank', function (req, res) {
+app.get('/client', function (req, res) {
   res.sendfile('blank.html');
 });
 
