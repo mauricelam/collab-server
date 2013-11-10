@@ -21,7 +21,7 @@ io.sockets.on('connection', function (socket) {
 		roomkey = data.room;
 		connecting_clients = io.sockets.clients('room');
 		newroom = true;
-		if !connecting_clients{
+		if (!connecting_clients){
 			newroom = false;
 		}
 		socket.join(roomkey);
