@@ -23,7 +23,7 @@ io.sockets.on('connection', function (socket) {
 		console.log(connecting_clients);
 		console.log("Parties in the room "+connecting_clients.length);
 		newroom = true;
-		if (!connecting_clients){
+		if (connecting_clients.length != 0){
 			newroom = false;
 		}
 		console.log("Room Key "+roomkey);
