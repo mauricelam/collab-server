@@ -34,6 +34,7 @@ io.sockets.on('connection', function (socket) {
 	});
     socket.on('htmlsource', function (data) {
         html_source = data.source;
+        socket.broadcast.to(roomkey).emit('htmlsource', html_source);
     });
 	socket.on('mousemove', function	(data) {
 		socket.broadcast.to(roomkey).emit('mousemove', data);
