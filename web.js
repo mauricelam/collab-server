@@ -20,6 +20,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('handshake', function (data) {
 		roomkey = data.room;
 		connecting_clients = io.sockets.clients('room');
+		console.log(connecting_clients);
 		newroom = true;
 		if (!connecting_clients){
 			newroom = false;
