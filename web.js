@@ -9,8 +9,22 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+	socket.emit('news', { hello: 'world' });
+	socket.on('handshake', function (data) {
+		roomkey = data.room;
+		socket.join(roomkey);
+		clientkey = guid()
+		socket.emit({client_key: clientkey});
+	});
 });
+
+function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000)
+             .toString(16)
+             .substring(1);
+};
+
+function guid() {
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+         s4() + '-' + s4() + s4() + s4();
+}
