@@ -19,7 +19,7 @@ io.sockets.on('connection', function (socket) {
 	var roomkey;
 	socket.on('handshake', function (data) {
 		roomkey = data.room;
-		connecting_clients = io.sockets.clients('room');
+		connecting_clients = io.sockets.clients(roomkey);
 		console.log(connecting_clients);
 		newroom = true;
 		if (!connecting_clients){
@@ -31,7 +31,7 @@ io.sockets.on('connection', function (socket) {
 		socket.emit('handshake', {client_key: clientkey, new_room: newroom});
 	});
 	socket.on('mousemove', function	(data) {
-		io.sockets.in(roomkey).emit('mousemove', data);
+		socket.broadcast.to(roomkey).emit('mousemove', data);
 	});
 });
 
